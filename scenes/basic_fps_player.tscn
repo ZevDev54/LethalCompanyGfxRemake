@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp4yoc63ljchq"]
+
+[ext_resource type="Script" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="1_g8j3c"]
+[ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://addons/Basic FPS Player/Src/basic_player_head.tscn" id="2_y3kdy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_li7ud"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_n6ut5"]
+
+[node name="Basic FPS Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("1_g8j3c")
+KEY_BIND_UP = "move_forward"
+KEY_BIND_LEFT = "move_left"
+KEY_BIND_RIGHT = "move_right"
+KEY_BIND_DOWN = "move_backward"
+KEY_BIND_JUMP = "jump"
+
+[node name="Head" parent="." instance=ExtResource("2_y3kdy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412659, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_li7ud")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_n6ut5")
