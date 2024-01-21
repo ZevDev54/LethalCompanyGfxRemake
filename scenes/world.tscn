@@ -46,6 +46,7 @@ camera_attributes = SubResource("CameraAttributesPractical_kkwjf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06093, -0.616257, -7.89029)
 
 [node name="Postprocess" parent="." instance=ExtResource("3_2f7pu")]
+visible = false
 
 [node name="Basic FPS Player" parent="." instance=ExtResource("4_ft58e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 4, -3)
