@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctks06aa6fu0w"]
+
+[ext_resource type="PackedScene" uid="uid://d0vt4cn1bcymh" path="res://tundra.blend" id="1_q1u1j"]
+[ext_resource type="Texture2D" uid="uid://dpvtfa8wpv3i4" path="res://rendering/AllSkyFree_Godot/Screenshots/_0001_AllSkyFree_Screen_08.jpg" id="2_sdnpm"]
+[ext_resource type="PackedScene" uid="uid://dp4yoc63ljchq" path="res://scenes/basic_fps_player.tscn" id="3_bqvta"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5hb2g"]
+panorama = ExtResource("2_sdnpm")
+
+[sub_resource type="Sky" id="Sky_wo8gr"]
+sky_material = SubResource("PanoramaSkyMaterial_5hb2g")
+
+[sub_resource type="Environment" id="Environment_rdvr8"]
+background_mode = 2
+sky = SubResource("Sky_wo8gr")
+ambient_light_source = 3
+ambient_light_color = Color(0.854902, 0.784314, 0.745098, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+ssao_enabled = true
+glow_intensity = 0.4
+fog_light_color = Color(0.870588, 1, 1, 1)
+fog_light_energy = 0.83
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.025
+volumetric_fog_albedo = Color(0.329412, 0.568627, 0.611765, 1)
+volumetric_fog_emission = Color(0.666667, 0.717647, 0.745098, 1)
+adjustment_enabled = true
+adjustment_saturation = 1.25
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_guoe4"]
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.45
+
+[node name="world-tundra" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.56, 0)
+
+[node name="tundra" parent="." instance=ExtResource("1_q1u1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383742, 1.19209e-07, 1.18842)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rdvr8")
+camera_attributes = SubResource("CameraAttributesPractical_guoe4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.462894, 0.886414, 0, -0.886414, -0.462894, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Basic FPS Player" parent="." instance=ExtResource("3_bqvta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 12.8905, 31)
