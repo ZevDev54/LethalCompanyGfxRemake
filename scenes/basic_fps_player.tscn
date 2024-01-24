@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp4yoc63ljchq"]
+[gd_scene load_steps=6 format=3 uid="uid://dp4yoc63ljchq"]
 
 [ext_resource type="Script" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="1_g8j3c"]
 [ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://addons/Basic FPS Player/Src/basic_player_head.tscn" id="2_y3kdy"]
+[ext_resource type="PackedScene" uid="uid://81d5kqlmqlo5" path="res://scenes/postprocess.tscn" id="3_fhiii"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_li7ud"]
 
@@ -19,8 +20,12 @@ KEY_BIND_JUMP = "jump"
 [node name="Head" parent="." instance=ExtResource("2_y3kdy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412659, 0)
 
+[node name="Postprocess" parent="Head" instance=ExtResource("3_fhiii")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_li7ud")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_n6ut5")
+
+[editable path="Head/Postprocess"]

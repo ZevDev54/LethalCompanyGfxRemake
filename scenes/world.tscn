@@ -1,25 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://coqo5uxlfs62g"]
+[gd_scene load_steps=8 format=3 uid="uid://coqo5uxlfs62g"]
 
 [ext_resource type="Texture2D" uid="uid://b7inh8dyc4wrq" path="res://rendering/AllSkyFree_Godot/Screenshots/_0006_AllSkyFree_Screen_04.jpg" id="1_a612y"]
 [ext_resource type="PackedScene" uid="uid://cctbsr0m1g2td" path="res://Landscape.blend" id="2_5acjn"]
-[ext_resource type="PackedScene" uid="uid://81d5kqlmqlo5" path="res://scenes/postprocess.tscn" id="3_2f7pu"]
 [ext_resource type="PackedScene" uid="uid://dp4yoc63ljchq" path="res://scenes/basic_fps_player.tscn" id="4_ft58e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ogx1j"]
 panorama = ExtResource("1_a612y")
 
-[sub_resource type="Sky" id="Sky_bg8rh"]
+[sub_resource type="Sky" id="Sky_v64w1"]
 sky_material = SubResource("PanoramaSkyMaterial_ogx1j")
 
 [sub_resource type="Environment" id="Environment_log7k"]
 background_mode = 2
-sky = SubResource("Sky_bg8rh")
+sky = SubResource("Sky_v64w1")
 ambient_light_source = 3
 ambient_light_color = Color(0.854902, 0.784314, 0.745098, 1)
 reflected_light_source = 2
 tonemap_mode = 3
 ssao_enabled = true
-glow_enabled = true
 glow_intensity = 0.4
 fog_enabled = true
 fog_light_color = Color(0.870588, 1, 1, 1)
@@ -27,10 +25,11 @@ fog_light_energy = 0.83
 fog_density = 0.0025
 fog_sky_affect = 0.0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.06
-volumetric_fog_albedo = Color(0.788235, 1, 1, 1)
-volumetric_fog_emission = Color(0.411765, 0.411765, 0.411765, 1)
-volumetric_fog_sky_affect = 0.05
+volumetric_fog_density = 0.075
+volumetric_fog_albedo = Color(0.713726, 0.709804, 0.690196, 1)
+volumetric_fog_emission = Color(0.713726, 0.705882, 0.690196, 1)
+volumetric_fog_emission_energy = 0.1
+volumetric_fog_sky_affect = 0.18
 adjustment_enabled = true
 adjustment_saturation = 1.25
 
@@ -47,14 +46,12 @@ camera_attributes = SubResource("CameraAttributesPractical_kkwjf")
 [node name="Landscape" parent="." instance=ExtResource("2_5acjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06093, -0.616257, -7.89029)
 
-[node name="Postprocess" parent="." instance=ExtResource("3_2f7pu")]
-
 [node name="Basic FPS Player" parent="." instance=ExtResource("4_ft58e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 4, -3)
+transform = Transform3D(-0.453975, 0, -0.891015, 0, 1, 0, 0.891015, 0, -0.453975, 6.33755, 1.32094, 2.30151)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.338163, 0.941088, 0, -0.941088, 0.338163, 0, 0, 0)
 light_color = Color(1, 1, 0.941176, 1)
+light_energy = 3.0
+light_volumetric_fog_energy = 4.0
 shadow_enabled = true
-
-[editable path="Postprocess"]

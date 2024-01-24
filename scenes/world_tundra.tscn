@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://bijw665sxex8v"]
+
+[ext_resource type="PackedScene" uid="uid://d0vt4cn1bcymh" path="res://tundra.blend" id="1_5lvuw"]
+[ext_resource type="Texture2D" uid="uid://dpvtfa8wpv3i4" path="res://rendering/AllSkyFree_Godot/Screenshots/_0001_AllSkyFree_Screen_08.jpg" id="2_kv1t7"]
+[ext_resource type="PackedScene" uid="uid://dp4yoc63ljchq" path="res://scenes/basic_fps_player.tscn" id="3_g5hdr"]
+[ext_resource type="Script" path="res://scenes/LerpFollowTarget.gd" id="4_7oc6x"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5hb2g"]
+panorama = ExtResource("2_kv1t7")
+
+[sub_resource type="Sky" id="Sky_wo8gr"]
+sky_material = SubResource("PanoramaSkyMaterial_5hb2g")
+
+[sub_resource type="Environment" id="Environment_rdvr8"]
+background_mode = 2
+sky = SubResource("Sky_wo8gr")
+ambient_light_source = 3
+ambient_light_color = Color(0.854902, 0.784314, 0.745098, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+ssao_enabled = true
+glow_intensity = 0.4
+fog_light_color = Color(0.870588, 1, 1, 1)
+fog_light_energy = 0.83
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.356863, 0.603922, 0.647059, 1)
+volumetric_fog_emission = Color(0.4, 0.807843, 0.870588, 1)
+volumetric_fog_sky_affect = 0.783
+adjustment_enabled = true
+adjustment_saturation = 1.25
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_n68m1"]
+shading_mode = 0
+billboard_mode = 1
+distance_fade_mode = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h8twr"]
+emission_shape = 1
+emission_sphere_radius = 100.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_kjcvo"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="world-tundra" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.56, 0)
+
+[node name="tundra" parent="." instance=ExtResource("1_5lvuw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383742, 1.19209e-07, 1.18842)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rdvr8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.462894, 0.886414, 0, -0.886414, -0.462894, 0, 0, 0)
+light_volumetric_fog_energy = 2.0
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="Basic FPS Player" parent="." instance=ExtResource("3_g5hdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 12.8905, 31)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." node_paths=PackedStringArray("follow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.2713, 0.828362)
+material_override = SubResource("ORMMaterial3D_n68m1")
+gi_mode = 0
+amount = 500
+visibility_aabb = AABB(-6.38826, -8.04835, -11.6799, 12.7765, 16.0967, 23.3599)
+process_material = SubResource("ParticleProcessMaterial_h8twr")
+draw_pass_1 = SubResource("BoxMesh_kjcvo")
+script = ExtResource("4_7oc6x")
+follow = NodePath("../Basic FPS Player")
