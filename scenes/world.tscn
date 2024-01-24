@@ -22,11 +22,13 @@ glow_intensity = 0.4
 fog_enabled = true
 fog_light_color = Color(0.870588, 1, 1, 1)
 fog_light_energy = 0.83
+fog_density = 0.0025
 fog_sky_affect = 0.0
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.075
 volumetric_fog_albedo = Color(0.713726, 0.709804, 0.690196, 1)
 volumetric_fog_emission = Color(0.713726, 0.705882, 0.690196, 1)
+volumetric_fog_emission_energy = 0.1
 volumetric_fog_sky_affect = 0.18
 adjustment_enabled = true
 adjustment_saturation = 1.25
@@ -45,9 +47,11 @@ camera_attributes = SubResource("CameraAttributesPractical_kkwjf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06093, -0.616257, -7.89029)
 
 [node name="Basic FPS Player" parent="." instance=ExtResource("4_ft58e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.33755, 1.32094, 18.046)
+transform = Transform3D(-0.453975, 0, -0.891015, 0, 1, 0, 0.891015, 0, -0.453975, 6.33755, 1.32094, 2.30151)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.338163, 0.941088, 0, -0.941088, 0.338163, 0, 0, 0)
 light_color = Color(1, 1, 0.941176, 1)
+light_energy = 3.0
+light_volumetric_fog_energy = 4.0
 shadow_enabled = true
