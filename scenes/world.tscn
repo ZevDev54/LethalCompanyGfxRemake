@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7inh8dyc4wrq" path="res://rendering/AllSkyFree_Godot/Screenshots/_0006_AllSkyFree_Screen_04.jpg" id="1_a612y"]
 [ext_resource type="PackedScene" uid="uid://cctbsr0m1g2td" path="res://Landscape.blend" id="2_5acjn"]
-[ext_resource type="PackedScene" uid="uid://dp4yoc63ljchq" path="res://scenes/basic_fps_player.tscn" id="4_ft58e"]
+[ext_resource type="Script" path="res://scenes/QuitListener.gd" id="4_fqhi4"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ogx1j"]
 panorama = ExtResource("1_a612y")
@@ -46,12 +46,12 @@ camera_attributes = SubResource("CameraAttributesPractical_kkwjf")
 [node name="Landscape" parent="." instance=ExtResource("2_5acjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06093, -0.616257, -7.89029)
 
-[node name="Basic FPS Player" parent="." instance=ExtResource("4_ft58e")]
-transform = Transform3D(-0.453975, 0, -0.891015, 0, 1, 0, 0.891015, 0, -0.453975, 6.33755, 1.32094, 2.30151)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.338163, 0.941088, 0, -0.941088, 0.338163, 0, 0, 0)
 light_color = Color(1, 1, 0.941176, 1)
 light_energy = 3.0
 light_volumetric_fog_energy = 4.0
 shadow_enabled = true
+
+[node name="QuitListener" type="Node" parent="."]
+script = ExtResource("4_fqhi4")

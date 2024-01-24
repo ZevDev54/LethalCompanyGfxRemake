@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://buehp6a2q0ink"]
+[gd_scene load_steps=4 format=3 uid="uid://buehp6a2q0ink"]
 
 [ext_resource type="PackedScene" uid="uid://coqo5uxlfs62g" path="res://scenes/world.tscn" id="1_xircf"]
+[ext_resource type="Script" path="res://scenes/NetworkManager.gd" id="2_6xaew"]
+[ext_resource type="PackedScene" uid="uid://c6qraocyfcy27" path="res://scenes/networked_player.tscn" id="3_7bhju"]
 
 [node name="pixelation" type="Control"]
 texture_filter = 1
@@ -24,3 +26,64 @@ size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_xircf")]
+
+[node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("menu_ui", "address_entry", "playerSpawnParent")]
+script = ExtResource("2_6xaew")
+menu_ui = NodePath("JoinHostUI/UI")
+address_entry = NodePath("JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer/AdressEntry")
+player_scene = ExtResource("3_7bhju")
+playerSpawnParent = NodePath("../SubViewportContainer/SubViewport/World")
+
+[node name="JoinHostUI" type="CanvasLayer" parent="NetworkManager"]
+
+[node name="UI" type="Control" parent="NetworkManager/JoinHostUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 479.0
+offset_top = 282.0
+offset_right = 733.0
+offset_bottom = 352.0
+
+[node name="MainMenu" type="PanelContainer" parent="NetworkManager/JoinHostUI/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 48.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NetworkManager/JoinHostUI/UI/MainMenu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HostButton" type="Button" parent="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="AdressEntry" type="LineEdit" parent="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "localhost"
+placeholder_text = "Enter address to join here.."
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="NetworkManager"]
+_spawnable_scenes = PackedStringArray("res://scenes/networked_player.tscn")
+spawn_path = NodePath("../../SubViewportContainer/SubViewport/World")
+
+[connection signal="pressed" from="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer/HostButton" to="NetworkManager" method="_on_host_button_pressed"]
+[connection signal="pressed" from="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="NetworkManager" method="_on_join_button_pressed"]
+
+[editable path="SubViewportContainer/SubViewport/World"]
