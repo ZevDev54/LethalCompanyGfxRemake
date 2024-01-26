@@ -26,12 +26,13 @@ func _process(delta: float) -> void:
 	if (not is_multiplayer_authority()): return
 	if (effect.can_get_buffer(512) && playback.can_push_buffer(512)):
 		send_data.rpc(effect.get_buffer(512))
-		print(effect.get_buffer(512))
+		# print(effect.get_buffer(512))
 	effect.clear_buffer()
 
 # if not "call_remote," then the player will hear their own voice
 # also don't try and do "unreliable_ordered." didn't work from my experience
 @rpc("any_peer", "call_remote", "reliable")
 func send_data(data : PackedVector2Array):
+	print(data);
 	for i in range(0,512):
 		playback.push_frame(data[i])
