@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bptad4y0e3ljb"]
+
+[ext_resource type="Script" path="res://voipcontroller.gd" id="1_u7v7s"]
+
+[node name="voipcontroller" type="Node"]
+script = ExtResource("1_u7v7s")
+
+[node name="Input" type="AudioStreamPlayer" parent="."]
+bus = &"Record"

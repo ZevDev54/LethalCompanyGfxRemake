@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 
 @export var camera : Camera3D;
+#@export var voip : voip_manager
+@export var voipcontroller : Node;
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -10,13 +12,16 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
+	voipcontroller.set_multiplayer_authority(str(name).to_int())
 
 func _ready():
 	if !is_multiplayer_authority(): return;
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true;
+	#voip.setupAudio(str(name).to_int())
 
 func _unhandled_input(event):
 	if !is_multiplayer_authority(): return;
