@@ -20,5 +20,4 @@ bus = &"Mute Bus"
 [node name="InputStream" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamMicrophone_xmuhm")
 autoplay = true
-stream_paused = true
 bus = &"Record"

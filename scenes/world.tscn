@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://coqo5uxlfs62g"]
 
 [ext_resource type="Texture2D" uid="uid://b7inh8dyc4wrq" path="res://rendering/AllSkyFree_Godot/Screenshots/_0006_AllSkyFree_Screen_04.jpg" id="1_a612y"]
-[ext_resource type="PackedScene" uid="uid://cctbsr0m1g2td" path="res://Landscape.blend" id="2_5acjn"]
+[ext_resource type="PackedScene" uid="uid://cm7xqg5m7xi7m" path="res://gltf-imports/Landscape.glb" id="4_3cggy"]
 [ext_resource type="Script" path="res://scenes/QuitListener.gd" id="4_fqhi4"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ogx1j"]
@@ -43,9 +43,6 @@ dof_blur_near_distance = 0.45
 environment = SubResource("Environment_log7k")
 camera_attributes = SubResource("CameraAttributesPractical_kkwjf")
 
-[node name="Landscape" parent="." instance=ExtResource("2_5acjn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.06093, -0.616257, -7.89029)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.338163, 0.941088, 0, -0.941088, 0.338163, 0, 0, 0)
 light_color = Color(1, 1, 0.941176, 1)
@@ -55,3 +52,6 @@ shadow_enabled = true
 
 [node name="QuitListener" type="Node" parent="."]
 script = ExtResource("4_fqhi4")
+
+[node name="Landscape2" parent="." instance=ExtResource("4_3cggy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.71919, 0)
