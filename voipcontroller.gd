@@ -20,7 +20,8 @@ func _ready() -> void:
 			
 	# playback variable will be needed for playback on other peers	
 	playback = output.get_stream_playback();
-
+	if(is_multiplayer_authority()):
+		output.stop()
 
 func _process(delta: float) -> void:
 	if (not is_multiplayer_authority()): return
@@ -28,11 +29,13 @@ func _process(delta: float) -> void:
 		send_data.rpc(effect.get_buffer(512))
 		# print(effect.get_buffer(512))
 	effect.clear_buffer()
+	print(playback.get_buffer(512));
+
 
 # if not "call_remote," then the player will hear their own voice
 # also don't try and do "unreliable_ordered." didn't work from my experience
 @rpc("any_peer", "call_remote", "reliable")
 func send_data(data : PackedVector2Array):
-	print(data);
+	# print(data);
 	for i in range(0,512):
 		playback.push_frame(data[i])
