@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://buehp6a2q0ink"]
 
-[ext_resource type="PackedScene" uid="uid://coqo5uxlfs62g" path="res://scenes/world.tscn" id="1_xircf"]
+[ext_resource type="PackedScene" uid="uid://c7qmws1h3h1wi" path="res://scenes/caves.tscn" id="1_qnk3d"]
 [ext_resource type="Script" path="res://scenes/NetworkManager.gd" id="2_6xaew"]
 [ext_resource type="PackedScene" uid="uid://c6qraocyfcy27" path="res://scenes/networked_player.tscn" id="3_7bhju"]
 
@@ -25,14 +25,14 @@ handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_xircf")]
+[node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_qnk3d")]
 
 [node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("menu_ui", "address_entry", "playerSpawnParent")]
 script = ExtResource("2_6xaew")
 menu_ui = NodePath("JoinHostUI/UI")
 address_entry = NodePath("JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer/AdressEntry")
 player_scene = ExtResource("3_7bhju")
-playerSpawnParent = NodePath("../SubViewportContainer/SubViewport/World")
+playerSpawnParent = NodePath("")
 
 [node name="JoinHostUI" type="CanvasLayer" parent="NetworkManager"]
 
@@ -87,3 +87,4 @@ spawn_path = NodePath("../../SubViewportContainer/SubViewport/World")
 [connection signal="pressed" from="NetworkManager/JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="NetworkManager" method="_on_join_button_pressed"]
 
 [editable path="SubViewportContainer/SubViewport/World"]
+[editable path="SubViewportContainer/SubViewport/World/Cave1"]

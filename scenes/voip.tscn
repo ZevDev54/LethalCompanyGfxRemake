@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvcaciltl1qeo"]
+
+[ext_resource type="Script" path="res://scenes/voip_manager.gd" id="1_lsmgr"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_0o1nq"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_xmuhm"]
+
+[node name="VOIP" type="Node3D" node_paths=PackedStringArray("output")]
+script = ExtResource("1_lsmgr")
+output = NodePath("OutputStream")
+inputThreshold = null
+
+[node name="OutputStream" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63462, 0)
+stream = SubResource("AudioStreamGenerator_0o1nq")
+autoplay = true
+bus = &"Mute Bus"
+
+[node name="InputStream" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamMicrophone_xmuhm")
+autoplay = true
+bus = &"Record"
