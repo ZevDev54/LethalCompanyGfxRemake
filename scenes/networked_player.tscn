@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6qraocyfcy27"]
+[gd_scene load_steps=10 format=3 uid="uid://c6qraocyfcy27"]
 
 [ext_resource type="Script" path="res://scenes/networked_player_movement.gd" id="1_23rbi"]
 [ext_resource type="PackedScene" uid="uid://81d5kqlmqlo5" path="res://scenes/postprocess.tscn" id="2_lecnr"]
 [ext_resource type="Script" path="res://scenes/AuthorityThingToggler.gd" id="3_6jvqs"]
+[ext_resource type="Script" path="res://scenes/LanternThrowing.gd" id="3_a1jdx"]
+[ext_resource type="PackedScene" uid="uid://bndyim2oe4yl2" path="res://scenes/light.tscn" id="4_kutlw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kyn42"]
 
@@ -44,6 +46,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00220346, 1.65037, 0.007294
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0162354, 0.01964, -0.377949)
 size = Vector3(0.67749, 0.1875, 0.24054)
 material = SubResource("StandardMaterial3D_1ioop")
+
+[node name="Light" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.431157, -0.642239, -0.777047)
+visible = false
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Camera3D/Light"]
+transform = Transform3D(0.194542, 0, 0, 0, -0.00331714, 0.194513, 0, -0.194513, -0.00331714, 0, 0, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D/Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19209e-07, -0.3561)
+visible = false
+light_energy = 10.0
+spot_range = 21.8318
+spot_angle = 23.4873
+
+[node name="LanternTHrowing" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.239386, -1.20937)
+script = ExtResource("3_a1jdx")
+lantern = ExtResource("4_kutlw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1es5p")

@@ -1,8 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7qmws1h3h1wi"]
+[gd_scene load_steps=18 format=3 uid="uid://c7qmws1h3h1wi"]
 
 [ext_resource type="Texture2D" uid="uid://b7inh8dyc4wrq" path="res://rendering/AllSkyFree_Godot/Screenshots/_0006_AllSkyFree_Screen_04.jpg" id="1_tervn"]
 [ext_resource type="Script" path="res://scenes/QuitListener.gd" id="3_24fbj"]
 [ext_resource type="PackedScene" uid="uid://dhyvebsb1nyyv" path="res://gltf/Cave1.glb" id="3_tup15"]
+[ext_resource type="PackedScene" uid="uid://bndyim2oe4yl2" path="res://scenes/light.tscn" id="4_abuef"]
+[ext_resource type="Texture2D" uid="uid://cobmb4ltb2p8j" path="res://rendering/Materials/Textures/dark-rough-rock1-bl/dark-rough-rock1-bl/dark_rough_rock1_albedo.png" id="5_krgin"]
+[ext_resource type="Texture2D" uid="uid://cqdtd4a8tn1cn" path="res://rendering/Materials/Textures/dark-rough-rock1-bl/dark-rough-rock1-bl/dark_rough_rock1_Metallic.png" id="5_o56uy"]
+[ext_resource type="Texture2D" uid="uid://dx2oy6wdp1xyr" path="res://rendering/Materials/Textures/dark-rough-rock1-bl/dark-rough-rock1-bl/dark_rough_rock1_Normal-ogl.png" id="6_ip3hr"]
+
+[sub_resource type="Curve" id="Curve_p32ch"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_pu5k5"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_58sin"]
+_data = [Vector2(0, 0.17407), 0.0, 0.31392, 0, 0, Vector2(1, 1), 0.82593, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_2j02g"]
+curve_x = SubResource("Curve_p32ch")
+curve_y = SubResource("Curve_pu5k5")
+curve_z = SubResource("Curve_58sin")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ogx1j"]
 panorama = ExtResource("1_tervn")
@@ -14,27 +35,95 @@ sky_material = SubResource("PanoramaSkyMaterial_ogx1j")
 background_mode = 2
 background_energy_multiplier = 0.0
 sky = SubResource("Sky_v64w1")
+ambient_light_color = Color(0, 0, 0.152941, 1)
 ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.0
+ambient_light_energy = 4.02
 reflected_light_source = 2
 tonemap_mode = 3
 ssao_enabled = true
-glow_intensity = 0.4
-fog_light_color = Color(0.870588, 1, 1, 1)
-fog_light_energy = 0.83
+glow_enabled = true
+glow_intensity = 0.34
+glow_bloom = 0.1
+fog_light_color = Color(0.431373, 0.254902, 1, 1)
+fog_light_energy = 0.16
 fog_density = 0.0025
 fog_sky_affect = 0.0
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.075
+volumetric_fog_density = 0.2179
 volumetric_fog_albedo = Color(0.270588, 0.254902, 0.454902, 1)
-volumetric_fog_emission_energy = 0.0
+volumetric_fog_emission = Color(0.270588, 0.254902, 0.454902, 1)
+volumetric_fog_emission_energy = 0.1
 volumetric_fog_sky_affect = 0.0
 adjustment_enabled = true
 adjustment_saturation = 1.25
+adjustment_color_correction = SubResource("CurveXYZTexture_2j02g")
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kkwjf"]
 dof_blur_near_enabled = true
 dof_blur_near_distance = 0.45
+
+[sub_resource type="Shader" id="Shader_51lb7"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform sampler2D texture_normal : hint_roughness_normal,filter_linear_mipmap,repeat_enable;
+uniform float normal_scale : hint_range(-16,16);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	NORMAL_MAP = texture(texture_normal,base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ybur"]
+render_priority = 0
+shader = SubResource("Shader_51lb7")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_scale = Vector3(50, 50, 50)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("5_krgin")
+shader_parameter/texture_metallic = ExtResource("5_o56uy")
+shader_parameter/texture_normal = ExtResource("6_ip3hr")
 
 [node name="World" type="Node3D"]
 
@@ -48,11 +137,15 @@ script = ExtResource("3_24fbj")
 [node name="Cave1" parent="." instance=ExtResource("3_tup15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611128, 0, 0.704137)
 
+[node name="cave" parent="Cave1" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_1ybur")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 light_energy = 0.0
 directional_shadow_mode = 0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.631481, -1.98929, 0)
+[node name="Light" parent="." instance=ExtResource("4_abuef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.68865, -2.70417, 0.676268)
 
 [editable path="Cave1"]
+[editable path="Light"]

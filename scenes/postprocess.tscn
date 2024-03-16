@@ -26,7 +26,7 @@ size = Vector2(2, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xonyd"]
 render_priority = 0
 shader = ExtResource("2_vaqeh")
-shader_parameter/levels = 15.0
+shader_parameter/levels = 20.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_y4rgo"]
 material = SubResource("ShaderMaterial_xonyd")
