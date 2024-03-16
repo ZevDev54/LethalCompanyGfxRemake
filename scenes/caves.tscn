@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7qmws1h3h1wi"]
+[gd_scene load_steps=22 format=3 uid="uid://c7qmws1h3h1wi"]
 
 [ext_resource type="Texture2D" uid="uid://b7inh8dyc4wrq" path="res://rendering/AllSkyFree_Godot/Screenshots/_0006_AllSkyFree_Screen_04.jpg" id="1_tervn"]
 [ext_resource type="Script" path="res://scenes/QuitListener.gd" id="3_24fbj"]
@@ -7,23 +7,27 @@
 [ext_resource type="Texture2D" uid="uid://cobmb4ltb2p8j" path="res://rendering/Materials/Textures/dark-rough-rock1-bl/dark-rough-rock1-bl/dark_rough_rock1_albedo.png" id="5_krgin"]
 [ext_resource type="Texture2D" uid="uid://cqdtd4a8tn1cn" path="res://rendering/Materials/Textures/dark-rough-rock1-bl/dark-rough-rock1-bl/dark_rough_rock1_Metallic.png" id="5_o56uy"]
 [ext_resource type="Texture2D" uid="uid://dx2oy6wdp1xyr" path="res://rendering/Materials/Textures/dark-rough-rock1-bl/dark-rough-rock1-bl/dark_rough_rock1_Normal-ogl.png" id="6_ip3hr"]
+[ext_resource type="PackedScene" uid="uid://br8guqm8pmh5a" path="res://gltf/mushyroom1.glb" id="8_xgvra"]
+[ext_resource type="PackedScene" uid="uid://ckrh3o2mh82m3" path="res://gltf/mushyroom2.glb" id="9_0m132"]
+[ext_resource type="Material" uid="uid://bgtiwn0l24rwi" path="res://rendering/Materials/mushyroomMat.tres" id="9_8fnaw"]
+[ext_resource type="PackedScene" uid="uid://hqb2ogsl4s04" path="res://gltf/mushyroom3.glb" id="10_lea1m"]
 
-[sub_resource type="Curve" id="Curve_p32ch"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+[sub_resource type="Curve" id="Curve_28qgj"]
+_data = [Vector2(0, 0), 0.0, 0.816095, 0, 0, Vector2(1, 1), 1.00455, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_pu5k5"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+[sub_resource type="Curve" id="Curve_acbrj"]
+_data = [Vector2(0, 0), 0.0, 0.819357, 0, 0, Vector2(1, 1), 1.25568, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_58sin"]
-_data = [Vector2(0, 0.17407), 0.0, 0.31392, 0, 0, Vector2(1, 1), 0.82593, 0.0, 1, 0]
+[sub_resource type="Curve" id="Curve_ovt3k"]
+_data = [Vector2(0.00534759, 0.207645), 0.0, 0.812501, 0, 0, Vector2(1, 1), 0.982708, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_2j02g"]
-curve_x = SubResource("Curve_p32ch")
-curve_y = SubResource("Curve_pu5k5")
-curve_z = SubResource("Curve_58sin")
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_gdgf5"]
+curve_x = SubResource("Curve_28qgj")
+curve_y = SubResource("Curve_acbrj")
+curve_z = SubResource("Curve_ovt3k")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ogx1j"]
 panorama = ExtResource("1_tervn")
@@ -37,25 +41,22 @@ background_energy_multiplier = 0.0
 sky = SubResource("Sky_v64w1")
 ambient_light_color = Color(0, 0, 0.152941, 1)
 ambient_light_sky_contribution = 0.0
-ambient_light_energy = 4.02
+ambient_light_energy = 2.63
 reflected_light_source = 2
 tonemap_mode = 3
 ssao_enabled = true
-glow_enabled = true
-glow_intensity = 0.34
-glow_bloom = 0.1
+glow_bloom = 1.0
 fog_light_color = Color(0.431373, 0.254902, 1, 1)
 fog_light_energy = 0.16
 fog_density = 0.0025
 fog_sky_affect = 0.0
-volumetric_fog_density = 0.2179
-volumetric_fog_albedo = Color(0.270588, 0.254902, 0.454902, 1)
-volumetric_fog_emission = Color(0.270588, 0.254902, 0.454902, 1)
-volumetric_fog_emission_energy = 0.1
+volumetric_fog_density = 0.025
+volumetric_fog_albedo = Color(0.494118, 0.533333, 1, 1)
+volumetric_fog_emission_energy = 0.0
 volumetric_fog_sky_affect = 0.0
 adjustment_enabled = true
 adjustment_saturation = 1.25
-adjustment_color_correction = SubResource("CurveXYZTexture_2j02g")
+adjustment_color_correction = SubResource("CurveXYZTexture_gdgf5")
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kkwjf"]
 dof_blur_near_enabled = true
@@ -145,7 +146,22 @@ light_energy = 0.0
 directional_shadow_mode = 0
 
 [node name="Light" parent="." instance=ExtResource("4_abuef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.68865, -2.70417, 0.676268)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.68865, -2.72134, 0.676268)
+
+[node name="mushyroom12" parent="." instance=ExtResource("8_xgvra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233, -65, 57)
+
+[node name="mushyroom1" parent="mushyroom12" index="0"]
+surface_material_override/0 = ExtResource("9_8fnaw")
+
+[node name="mushyroom22" parent="." instance=ExtResource("9_0m132")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 240, -67, 48)
+
+[node name="mushyroom32" parent="." instance=ExtResource("10_lea1m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, -57, 35)
+
+[node name="Light2" parent="." instance=ExtResource("4_abuef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25366, -1.98782, 0.183524)
 
 [editable path="Cave1"]
-[editable path="Light"]
+[editable path="mushyroom12"]
