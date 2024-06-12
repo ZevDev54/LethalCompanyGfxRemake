@@ -20,7 +20,7 @@ func _ready():
 func _process(delta):
 	if(lightLevelPercent > 0):
 		lightLevelPercent -= delta * lightLevelDegradation;
-		print("AAAA")
+		# print("AAAA")
 	else:
 		lightLevelPercent = 0;
 
@@ -30,4 +30,4 @@ func _process(delta):
 
 	light.light_energy = startingLightEnergy * lightLevelPercent;
 
-	print(lightLevelPercent);
+	# print(lightLevelPercent);

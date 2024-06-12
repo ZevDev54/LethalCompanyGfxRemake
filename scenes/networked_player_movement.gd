@@ -18,6 +18,8 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true;
 
+	PlayerAutoload.player = self;
+
 func _unhandled_input(event):
 	if !is_multiplayer_authority(): return;
 
@@ -29,7 +31,7 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	if !is_multiplayer_authority(): return;
-
+	# footstepPlayer.play();
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -41,6 +43,9 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+
+	FootstepAudioLoop(delta, input_dir.length() > 0);
+
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -49,4 +54,22 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
+		
+
+
 	move_and_slide()
+
+@export var footstepRate := 0.5;
+@export var footstepPlayer : AdaptiveAudioPlayer;
+var footstepTimer := 0.0;
+
+func FootstepAudioLoop(delta, moving):
+	if(!moving):
+		footstepTimer = 0;
+		return;
+	
+	footstepTimer -= delta;
+	if(footstepTimer <= 0):
+		footstepTimer = footstepRate;
+		footstepPlayer.play_sfx();
+		print("footstep!");

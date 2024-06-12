@@ -1,10 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6qraocyfcy27"]
+[gd_scene load_steps=17 format=3 uid="uid://c6qraocyfcy27"]
 
 [ext_resource type="Script" path="res://scenes/networked_player_movement.gd" id="1_23rbi"]
 [ext_resource type="PackedScene" uid="uid://81d5kqlmqlo5" path="res://scenes/postprocess.tscn" id="2_lecnr"]
 [ext_resource type="Script" path="res://scenes/AuthorityThingToggler.gd" id="3_6jvqs"]
 [ext_resource type="Script" path="res://scenes/LanternThrowing.gd" id="3_a1jdx"]
 [ext_resource type="PackedScene" uid="uid://bndyim2oe4yl2" path="res://scenes/light.tscn" id="4_kutlw"]
+[ext_resource type="AudioStream" uid="uid://66rq0shfwuj1" path="res://audio/sfx/steps/StoneStep2.mp3" id="6_ay86m"]
+[ext_resource type="AudioStream" uid="uid://1b7af741r2gp" path="res://audio/sfx/steps/StoneStep1.mp3" id="6_u3bni"]
+[ext_resource type="AudioStream" uid="uid://blbqb5067njw6" path="res://audio/sfx/steps/StoneStep3.mp3" id="8_vo7rc"]
+[ext_resource type="AudioStream" uid="uid://cvtrykbgmqyi6" path="res://audio/sfx/steps/StoneStep4.mp3" id="9_ocoyj"]
+[ext_resource type="AudioStream" uid="uid://da1lrigx441x1" path="res://audio/sfx/steps/StoneStep5.mp3" id="10_1vd3p"]
+[ext_resource type="Script" path="res://addons/adaptive-audio-player-main/adaptiveaudioplayer.gd" id="11_ua1u0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kyn42"]
 
@@ -24,10 +30,26 @@ properties/2/path = NodePath("Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="networked_player" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iecpb"]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 5
+stream_0/stream = ExtResource("6_u3bni")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("6_ay86m")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("8_vo7rc")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("9_ocoyj")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("10_1vd3p")
+stream_4/weight = 1.0
+
+[node name="networked_player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "footstepPlayer")]
 collision_layer = 2
 script = ExtResource("1_23rbi")
 camera = NodePath("Camera3D")
+footstepPlayer = NodePath("AdaptiveAudioPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -66,6 +88,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.239386, -1.20937)
 script = ExtResource("3_a1jdx")
 lantern = ExtResource("4_kutlw")
 
+[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1es5p")
 
@@ -73,3 +97,13 @@ replication_config = SubResource("SceneReplicationConfig_1es5p")
 script = ExtResource("3_6jvqs")
 authority_disable_list = [NodePath("../Camera3D/CSGBox3D")]
 authority_enable_list = [NodePath("../Camera3D")]
+
+[node name="AdaptiveAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_iecpb")
+volume_db = -7.384
+bus = &"Open"
+script = ExtResource("11_ua1u0")
+ContinuousAdapt = true
+small_threshold = 5.0
+medium_threshold = 10.0
+big_threshold = 20.0
