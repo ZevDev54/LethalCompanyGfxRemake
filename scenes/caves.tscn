@@ -128,7 +128,7 @@ shader_parameter/texture_albedo = ExtResource("5_krgin")
 shader_parameter/texture_metallic = ExtResource("5_o56uy")
 shader_parameter/texture_normal = ExtResource("6_ip3hr")
 
-[node name="World" type="Node3D"]
+[node name="CavesWorld" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_log7k")
