@@ -3,7 +3,7 @@
 @icon("res://adaptive-audio-player-main/aap.svg")
 extends AudioStreamPlayer3D
 
-# class_name AdaptiveAudioPlayer
+class_name AdaptiveAudioPlayer
 
 @onready var detectors: Node3D = Node3D.new()
 @onready var up: RayCast3D = RayCast3D.new()
@@ -51,7 +51,7 @@ func _ready() -> void:
 		play_sfx()
 
 func _physics_process(_delta) -> void:
-	player_check.set_target_position(get_viewport().get_camera_3d().global_position - global_position)
+	player_check.set_target_position(get_viewport().get_camera_3d().global_position - self.global_position)
 	detectors.global_position = global_position
 	if PlayerAutoload.player != null:
 		for n in detectors.get_children():

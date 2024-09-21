@@ -67,6 +67,10 @@ resource_name = "Compressor"
 
 [sub_resource type="AudioEffectDelay" id="AudioEffectDelay_y2j5d"]
 resource_name = "Delay"
+<<<<<<< HEAD
+=======
+dry = 0.5
+>>>>>>> 1a455aaf684b7f973a81cf292564d81d4509ef33
 tap1_active = false
 tap2_active = false
 feedback_active = true
@@ -78,6 +82,10 @@ resource_name = "Compressor"
 
 [sub_resource type="AudioEffectDelay" id="AudioEffectDelay_tj55u"]
 resource_name = "Delay"
+<<<<<<< HEAD
+=======
+dry = 0.54
+>>>>>>> 1a455aaf684b7f973a81cf292564d81d4509ef33
 tap1_active = false
 tap2_active = false
 feedback_active = true
@@ -137,8 +145,15 @@ resource_name = "Compressor"
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_gb5qf"]
 resource_name = "Reverb"
 predelay_feedback = 0.0
+<<<<<<< HEAD
 room_size = 0.3
 hipass = 0.5
+=======
+room_size = 0.62
+damping = 0.31
+hipass = 0.5
+wet = 0.36
+>>>>>>> 1a455aaf684b7f973a81cf292564d81d4509ef33
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_4njxi"]
 resource_name = "Compressor"
@@ -221,7 +236,11 @@ bus/7/send = &"Master"
 bus/7/effect/0/effect = SubResource("AudioEffectDelay_m3qvk")
 bus/7/effect/0/enabled = true
 bus/7/effect/1/effect = SubResource("AudioEffectReverb_82mbk")
+<<<<<<< HEAD
 bus/7/effect/1/enabled = false
+=======
+bus/7/effect/1/enabled = true
+>>>>>>> 1a455aaf684b7f973a81cf292564d81d4509ef33
 bus/7/effect/2/effect = SubResource("AudioEffectCompressor_5jvny")
 bus/7/effect/2/enabled = true
 bus/8/name = &"Room Big"
