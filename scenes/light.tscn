@@ -27,9 +27,11 @@ light = NodePath("OmniLight3D")
 lightLevelDegradation = 0.01
 
 [node name="OmniLight3D" type="OmniLight3D" parent="LightLevelSetter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.633585, 0)
 light_color = Color(1, 1, 0.952941, 1)
-omni_range = 66.574
+light_energy = 2.0
+omni_range = 60.0
+omni_attenuation = 1.31951
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
