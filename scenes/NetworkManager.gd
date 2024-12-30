@@ -1,3 +1,4 @@
+class_name NetworkManager
 extends Node
 
 @export var menu_ui : Control;

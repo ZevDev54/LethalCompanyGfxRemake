@@ -37,7 +37,7 @@ adjustment_saturation = 1.25
 dof_blur_near_enabled = true
 dof_blur_near_distance = 0.45
 
-[node name="SandyWorld" type="Node3D"]
+[node name="SandyWorld2" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_log7k")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfdj1b4eckhvo"]
+
+[ext_resource type="Script" path="res://scenes/test_rigidbody.gd" id="1_tn5dd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ajn7g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_iac1d"]
+
+[node name="test_rigidbody" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_tn5dd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ajn7g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_iac1d")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 0, 0)

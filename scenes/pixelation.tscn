@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://buehp6a2q0ink"]
+[gd_scene load_steps=11 format=3 uid="uid://buehp6a2q0ink"]
 
+[ext_resource type="Script" path="res://scenes/world_manager.gd" id="1_enxfe"]
+[ext_resource type="PackedScene" uid="uid://br8nk3uawf8tq" path="res://scenes/CSGTestWorld.tscn" id="1_wyt6m"]
+[ext_resource type="PackedScene" uid="uid://c7qmws1h3h1wi" path="res://scenes/caves.tscn" id="2_2br6d"]
 [ext_resource type="Script" path="res://scenes/NetworkManager.gd" id="2_6xaew"]
-[ext_resource type="PackedScene" uid="uid://c6qraocyfcy27" path="res://scenes/networked_player.tscn" id="3_7bhju"]
+[ext_resource type="PackedScene" uid="uid://bl6ujxttohyjc" path="res://scenes/physics_player.tscn" id="3_dt4t3"]
+[ext_resource type="PackedScene" uid="uid://coqo5uxlfs62g" path="res://scenes/SandyWorld.tscn" id="4_6uxlw"]
+[ext_resource type="PackedScene" uid="uid://bijw665sxex8v" path="res://scenes/world_tundra.tscn" id="5_76cnm"]
+[ext_resource type="PackedScene" uid="uid://c6qraocyfcy27" path="res://scenes/networked_player.tscn" id="6_ej1b4"]
+[ext_resource type="PackedScene" uid="uid://bfdj1b4eckhvo" path="res://scenes/test_rigidbody.tscn" id="8_f28nm"]
+[ext_resource type="PackedScene" uid="uid://c6aasvhtoeguw" path="res://scenes/Stripped_physics_player.tscn" id="9_v5brc"]
 
 [node name="pixelation" type="Control"]
 texture_filter = 1
@@ -25,12 +33,17 @@ audio_listener_enable_3d = true
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("menu_ui", "address_entry", "playerSpawnParent")]
+[node name="WorldManager" type="Node" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("networkManager")]
+script = ExtResource("1_enxfe")
+worlds = Array[PackedScene]([ExtResource("2_2br6d"), ExtResource("1_wyt6m"), ExtResource("4_6uxlw"), ExtResource("5_76cnm")])
+players = Array[PackedScene]([ExtResource("6_ej1b4"), ExtResource("3_dt4t3"), ExtResource("8_f28nm"), ExtResource("9_v5brc")])
+networkManager = NodePath("../../../NetworkManager")
+
+[node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("menu_ui", "address_entry")]
 script = ExtResource("2_6xaew")
 menu_ui = NodePath("JoinHostUI/UI")
 address_entry = NodePath("JoinHostUI/UI/MainMenu/MarginContainer/VBoxContainer/AdressEntry")
-player_scene = ExtResource("3_7bhju")
-playerSpawnParent = NodePath("")
+player_scene = ExtResource("3_dt4t3")
 
 [node name="JoinHostUI" type="CanvasLayer" parent="NetworkManager"]
 

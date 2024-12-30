@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6aasvhtoeguw"]
+
+[ext_resource type="Script" path="res://scenes/stripped_physics_player_movement.gd" id="1_6w8de"]
+[ext_resource type="PackedScene" uid="uid://81d5kqlmqlo5" path="res://scenes/postprocess.tscn" id="2_3oeqj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kyn42"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qolfx"]
+
+[node name="physics_networked_player" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+max_contacts_reported = 1
+linear_damp = 0.2
+script = ExtResource("1_6w8de")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_kyn42")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_qolfx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00220346, 1.65037, 0.00729406)
+current = true
+
+[node name="Postprocess" parent="Camera3D" instance=ExtResource("2_3oeqj")]

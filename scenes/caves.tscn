@@ -141,6 +141,7 @@ script = ExtResource("3_24fbj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611128, 0, 0.704137)
 
 [node name="cave" parent="Cave1" index="0"]
+transform = Transform3D(2.8534, 0, 0, 0, 2.8534, 0, 0, 0, 2.8534, -0.515293, 0, -0.18351)
 surface_material_override/0 = SubResource("ShaderMaterial_1ybur")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

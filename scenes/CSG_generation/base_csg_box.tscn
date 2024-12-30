@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c34m5r5hrkt8v"]
+
+[ext_resource type="Script" path="res://scenes/csg_multi_operator.gd" id="1_vxj50"]
+[ext_resource type="Script" path="res://csg_operator_group.gd" id="2_066e7"]
+[ext_resource type="PackedScene" uid="uid://b6qxaoynarskx" path="res://scenes/CSG_generation/csg_box_3d.tscn" id="3_kwj0a"]
+
+[sub_resource type="Resource" id="Resource_alcja"]
+script = ExtResource("2_066e7")
+spawn = ExtResource("3_kwj0a")
+operator_count_min = 10
+operator_count_max = 20
+operator_min_size = Vector3(15, 15, 15)
+operator_max_size = Vector3(25, 20, 25)
+operation_type = 2
+
+[sub_resource type="Resource" id="Resource_0j2o2"]
+script = ExtResource("2_066e7")
+spawn = ExtResource("3_kwj0a")
+operator_count_min = 5
+operator_count_max = 10
+operator_min_size = Vector3(2, 2, 2)
+operator_max_size = Vector3(5, 5, 5)
+operation_type = 0
+
+[node name="BaseCSGBox" type="CSGBox3D" node_paths=PackedStringArray("target_parent") groups=["ground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+operation = 2
+use_collision = true
+size = Vector3(81.3345, 81.3345, 81.3345)
+script = ExtResource("1_vxj50")
+target_parent = NodePath(".")
+operationBatches = Array[ExtResource("2_066e7")]([SubResource("Resource_alcja"), SubResource("Resource_0j2o2")])
