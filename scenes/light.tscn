@@ -16,8 +16,8 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 continuous_cd = true
-max_contacts_reported = 1
 contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_hlgv4")
 
 [node name="LightLevelSetter" type="Node3D" parent="." node_paths=PackedStringArray("lightMesh", "light")]
@@ -27,11 +27,9 @@ light = NodePath("OmniLight3D")
 lightLevelDegradation = 0.01
 
 [node name="OmniLight3D" type="OmniLight3D" parent="LightLevelSetter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.633585, 0)
-light_color = Color(1, 1, 0.952941, 1)
-light_energy = 2.0
-omni_range = 60.0
-omni_attenuation = 1.31951
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57351, 0)
+omni_range = 32.23
+omni_attenuation = 0.161
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

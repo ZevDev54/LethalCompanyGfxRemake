@@ -2,6 +2,7 @@ extends Node3D
 
 @export var lantern : PackedScene;
 @export var throwPower = 15;
+@onready var lanternThrowSound : AudioStreamPlayer3D = $lanternsfx;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,5 +22,4 @@ func _process(delta):
 
 		var rot = get_global_transform().basis
 		rb.apply_impulse(-rot.z * throwPower);
-
-
+		lanternThrowSound.play();

@@ -6,7 +6,7 @@ uniform sampler2D screen_texture : source_color, hint_screen_texture, filter_nea
 uniform float levels = 1.0;
 
 void vertex() {
-	POSITION = vec4(VERTEX, 1.0);
+	POSITION = vec4(VERTEX.xy, 1.0, 1.0);
 }
 
 void fragment() {
@@ -14,16 +14,17 @@ void fragment() {
 	float greyscale = max(fragColor.r, max(fragColor.g, fragColor.b));
 	float lower     = floor(greyscale * levels) / levels;
 	float lowerDiff = abs(greyscale - lower);
-	
+
 	float upper = ceil(greyscale * levels) / levels;
 	float upperDiff = abs(upper - greyscale);
-	
+
 	float level = lowerDiff <= upperDiff ? lower : upper;
 	float adjustment = level / greyscale;
-	
-	
+
+
 
 	ALBEDO = fragColor.rgb * adjustment;
+	//ALBEDO = vec3(1.0, 0.0,0.0);
 }
 
 //void light() {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bl6ujxttohyjc"]
+[gd_scene load_steps=22 format=3 uid="uid://bl6ujxttohyjc"]
 
 [ext_resource type="Script" path="res://scenes/physics_player_movement.gd" id="1_mitof"]
 [ext_resource type="Script" path="res://scenes/camera_look_controller.gd" id="2_1nsae"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bndyim2oe4yl2" path="res://scenes/light.tscn" id="4_lpkec"]
 [ext_resource type="Script" path="res://scenes/AuthorityThingToggler.gd" id="5_kvkls"]
 [ext_resource type="AudioStream" uid="uid://1b7af741r2gp" path="res://audio/sfx/steps/StoneStep1.mp3" id="6_4v2yf"]
+[ext_resource type="AudioStream" uid="uid://dfg35lkbmsljk" path="res://audio/sfx/LampLightAndThrow.wav" id="6_r5l2b"]
 [ext_resource type="AudioStream" uid="uid://66rq0shfwuj1" path="res://audio/sfx/steps/StoneStep2.mp3" id="7_13x2m"]
 [ext_resource type="AudioStream" uid="uid://blbqb5067njw6" path="res://audio/sfx/steps/StoneStep3.mp3" id="8_unrhn"]
 [ext_resource type="AudioStream" uid="uid://cvtrykbgmqyi6" path="res://audio/sfx/steps/StoneStep4.mp3" id="9_7hyhq"]
@@ -20,6 +21,10 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ioop"]
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u307e"]
+streams_count = 1
+stream_0/stream = ExtResource("6_r5l2b")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1es5p"]
 properties/0/path = NodePath(".:position")
@@ -92,10 +97,13 @@ light_energy = 10.0
 spot_range = 21.8318
 spot_angle = 23.4873
 
-[node name="LanternTHrowing" type="Node3D" parent="Camera3D"]
+[node name="LanternThrowing" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.239386, -1.20937)
 script = ExtResource("3_su4o8")
 lantern = ExtResource("4_lpkec")
+
+[node name="lanternsfx" type="AudioStreamPlayer3D" parent="Camera3D/LanternThrowing"]
+stream = SubResource("AudioStreamRandomizer_u307e")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
 
