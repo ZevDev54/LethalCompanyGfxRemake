@@ -11,6 +11,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if !is_multiplayer_authority(): return;
 	if Input.is_action_just_pressed("lantern"):
 		var spawned = lantern.instantiate();
 		# get_tree().add_child(spawned);

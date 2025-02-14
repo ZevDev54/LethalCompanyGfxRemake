@@ -12,8 +12,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
+	# print("a player's name: +"+str(name)+", my peer id "+get_tree().get_network_unique_id()+"+ authority" if is_multiplayer_authority() else "not authority");
 
 func _ready():
+	set_multiplayer_authority(str(name).to_int(), true)
 	if !is_multiplayer_authority(): return;
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true;
@@ -30,6 +32,8 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
+	# print(str(name)+" is "+("authority" if is_multiplayer_authority() else "not authority")+"and is "+("server" if multiplayer.is_server() else "client"));
+
 	if !is_multiplayer_authority(): return;
 	# footstepPlayer.play();
 	# Add the gravity.

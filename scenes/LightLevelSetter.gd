@@ -3,7 +3,7 @@ extends Node3D
 @export var lightMesh : GeometryInstance3D;
 @export  var light : Light3D;
 
-var lightLevelPercent := 1.0;
+@export var lightLevelPercent := 1.0;
 @export var lightLevelDegradation : float = 0.1;
 
 var curve : Curve2D;
