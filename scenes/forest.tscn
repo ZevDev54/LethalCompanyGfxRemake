@@ -1,0 +1,86 @@
+[gd_scene load_steps=14 format=3 uid="uid://bcrvjwilnvirn"]
+
+[ext_resource type="Texture2D" uid="uid://b7inh8dyc4wrq" path="res://rendering/AllSkyFree_Godot/Screenshots/_0006_AllSkyFree_Screen_04.jpg" id="1_2i5sm"]
+[ext_resource type="Script" path="res://scenes/QuitListener.gd" id="2_3mwyg"]
+[ext_resource type="PackedScene" uid="uid://bndyim2oe4yl2" path="res://scenes/light.tscn" id="7_skhd0"]
+[ext_resource type="AudioStream" uid="uid://bx4m6fmhhhu8n" path="res://audio/sfx/deep-cave-159876.mp3" id="8_vrx8f"]
+[ext_resource type="Script" path="res://addons/adaptive-audio-player-main/adaptiveaudioplayer.gd" id="9_xqsqf"]
+
+[sub_resource type="Curve" id="Curve_28qgj"]
+_data = [Vector2(0, 0), 0.0, 0.816095, 0, 0, Vector2(1, 1), 1.00455, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_acbrj"]
+_data = [Vector2(0, 0), 0.0, 0.819357, 0, 0, Vector2(1, 1), 1.25568, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ovt3k"]
+_data = [Vector2(0.00534759, 0.207645), 0.0, 0.812501, 0, 0, Vector2(1, 1), 0.982708, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_gdgf5"]
+curve_x = SubResource("Curve_28qgj")
+curve_y = SubResource("Curve_acbrj")
+curve_z = SubResource("Curve_ovt3k")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ogx1j"]
+panorama = ExtResource("1_2i5sm")
+
+[sub_resource type="Sky" id="Sky_v64w1"]
+sky_material = SubResource("PanoramaSkyMaterial_ogx1j")
+
+[sub_resource type="Environment" id="Environment_log7k"]
+background_mode = 2
+background_energy_multiplier = 0.65
+sky = SubResource("Sky_v64w1")
+ambient_light_color = Color(0.305647, 0.452474, 0.500238, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+ssao_enabled = true
+glow_bloom = 1.0
+fog_light_color = Color(0.431373, 0.254902, 1, 1)
+fog_light_energy = 0.16
+fog_density = 0.0025
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.025
+volumetric_fog_albedo = Color(0.494118, 0.533333, 1, 1)
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_sky_affect = 0.0
+adjustment_enabled = true
+adjustment_saturation = 1.25
+adjustment_color_correction = SubResource("CurveXYZTexture_gdgf5")
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kkwjf"]
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.45
+
+[node name="CavesWorld" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_log7k")
+camera_attributes = SubResource("CameraAttributesPractical_kkwjf")
+
+[node name="QuitListener" type="Node" parent="."]
+script = ExtResource("2_3mwyg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+light_energy = 0.0
+directional_shadow_mode = 0
+
+[node name="Light" parent="." instance=ExtResource("7_skhd0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.68865, -2.72134, 0.676268)
+
+[node name="Light2" parent="." instance=ExtResource("7_skhd0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25366, -1.98782, 0.183524)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.880403, 0.474227, 0, -0.474227, 0.880403, 0.356819, 2.66036, 4.13352)
+fov = 85.0
+
+[node name="AdaptiveAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 0, 3)
+stream = ExtResource("8_vrx8f")
+volume_db = 12.376
+panning_strength = 0.0
+script = ExtResource("9_xqsqf")
+AAPAutoPlay = true
